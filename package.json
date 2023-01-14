@@ -1,0 +1,30 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "Third assignment RS School node.js",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc server.ts",
+    "start": "ts-node server.ts "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GilTRipper/crud-api.git"
+  },
+  "author": "Gil T Ripper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GilTRipper/crud-api/issues"
+  },
+  "homepage": "https://github.com/GilTRipper/crud-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4",
+    "uuid": "^9.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
