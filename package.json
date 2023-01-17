@@ -4,9 +4,9 @@
   "description": "Third assignment RS School node.js",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon",
-    "build": "tsc server.ts",
-    "start": "ts-node server.ts "
+    "strart:dev": "nodemon",
+    "build": "tsc",
+    "start:prod": "node dist/server.js "
   },
   "repository": {
     "type": "git",
@@ -18,13 +18,14 @@
     "url": "https://github.com/GilTRipper/crud-api/issues"
   },
   "homepage": "https://github.com/GilTRipper/crud-api#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.20",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.4",
+  "dependencies": {
+    "dotenv": "^16.0.3",
     "uuid": "^9.0.0"
   },
-  "dependencies": {
-    "dotenv": "^16.0.3"
+  "devDependencies": {
+    "@types/uuid": "^9.0.0",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
   }
 }
