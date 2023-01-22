@@ -1,7 +1,7 @@
 import * as uuid from "uuid";
 import { createMessage } from "../utils";
 import type { IncomingMessage, ServerResponse } from "http";
-import type { User } from "./types";
+import type { User, UserRequestBody } from "./types";
 import { generateUniqueId, selectUsers, writeUsers } from "./helpers";
 
 type GetUserByIdParams = {
@@ -61,8 +61,8 @@ export const addUser = async (req: IncomingMessage, res: ServerResponse) => {
     users.push(newUser);
 
     await writeUsers(users);
-    message = createMessage(200, "success", undefined, { user: newUser });
-    res.writeHead(200).end(message);
+    message = createMessage(201, "success", undefined, { user: newUser });
+    res.writeHead(201).end(message);
   });
 };
 
@@ -87,8 +87,44 @@ export const deleteUser = async (_: IncomingMessage, res: ServerResponse, params
 
   const newUsers = users.filter(user => user.id !== userId);
   await writeUsers(newUsers);
-  message = createMessage(200, "success", "User successfully deleted");
-  res.writeHead(200).end(message);
+  message = createMessage(204, "success", "User successfully deleted");
+  res.writeHead(204).end(message);
 };
 
-export const changeUser = async (_: IncomingMessage, res: ServerResponse, params: GetUserByIdParams) => {};
+export const changeUser = async (req: IncomingMessage, res: ServerResponse, params: GetUserByIdParams) => {
+  let message: string;
+  req.on("data", async chunk => {
+    const { userId } = params;
+    const body: UserRequestBody = JSON.parse(chunk.toString());
+    const { username, hobbies, age } = body;
+
+    const isUuid = uuid.validate(userId);
+
+    if (!isUuid) {
+      message = createMessage(400, "error", "Invalid userId. UserID must be uuid.");
+      res.writeHead(400).end(message);
+      return;
+    }
+
+    if (!username || !age || !hobbies) {
+      message = createMessage(400, "error", "Not all required fields are passed");
+      res.writeHead(400).end(message);
+      return;
+    }
+    const users = await selectUsers();
+    const user = users.find(user => user.id === userId);
+    if (!user) {
+      message = createMessage(404, "error", "User not found");
+      res.writeHead(404).end(message);
+      return;
+    }
+    user.age = age;
+    user.username = username;
+    user.hobbies = hobbies;
+
+    await writeUsers(users);
+
+    message = createMessage(200, "success", "User successfully updated", { user: user });
+    res.writeHead(200).end(message);
+  });
+};
