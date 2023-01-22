@@ -3,8 +3,18 @@
   "version": "1.0.0",
   "description": "Third assignment RS School node.js",
   "main": "server.js",
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "ts-node ./src/server.ts",
+    "ext": "ts"
+  },
   "scripts": {
-    "strart:dev": "nodemon",
+    "start:dev": "nodemon",
     "build": "tsc",
     "start:prod": "node dist/server.js "
   },

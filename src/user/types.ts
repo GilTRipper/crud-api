@@ -4,3 +4,9 @@ export type User = {
   age: number;
   hobbies: string[];
 };
+
+export type UserRequestBody = {
+  username?: string;
+  age?: number;
+  hobbies?: string[];
+};

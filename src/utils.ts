@@ -24,3 +24,11 @@ export const handle500Error = (_: IncomingMessage, res: ServerResponse) => {
   res.writeHead(500);
   res.end(message);
 };
+
+export const findMap = <T, U>(arr: T[], pred: (x: T) => U | false) => {
+  for (const item of arr) {
+    const result = pred(item);
+    if (result) return result;
+  }
+  return undefined;
+};
