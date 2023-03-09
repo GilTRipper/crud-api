@@ -1,8 +1,10 @@
 import { config } from "dotenv";
 import { createApp } from "./app";
 import * as User from "./user";
+import { startDB } from "./utils";
 
 config();
+startDB();
 
 const app = createApp();
 

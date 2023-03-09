@@ -1,10 +1,9 @@
 import { readFile, writeFile } from "fs/promises";
-import { join } from "path";
+import { usersPath } from "../utils";
 import * as uuid from "uuid";
 
 import type { User } from "./types";
 
-const usersPath = join(__dirname, "users.json");
 
 export const selectUsers = async () => {
   try {

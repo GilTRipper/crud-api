@@ -1,4 +1,8 @@
+import { writeFile } from "fs/promises";
+import { join } from "path";
 import { IncomingMessage, ServerResponse } from "http";
+
+export const usersPath = join(__dirname, "db.json");
 
 export const createMessage = <DT = any>(
   code: number,
@@ -31,4 +35,8 @@ export const findMap = <T, U>(arr: T[], pred: (x: T) => U | false) => {
     if (result) return result;
   }
   return undefined;
+};
+
+export const startDB = async () => {
+  writeFile(usersPath, '{ "users": [] }', { flag: "w+" });
 };
