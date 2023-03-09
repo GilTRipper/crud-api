@@ -1,9 +1,8 @@
-import * as uuid from "uuid";
 import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
-import type { ServerResponse } from "http";
-import { User } from "./types";
-import { createMessage } from "../utils";
+import * as uuid from "uuid";
+
+import type { User } from "./types";
 
 const usersPath = join(__dirname, "users.json");
 
@@ -20,7 +19,11 @@ export const selectUsers = async () => {
 export const generateUniqueId = async () => {
   const id = uuid.v4();
   const users = await selectUsers();
-  if (users.find(user => user.id === id)) generateUniqueId();
+
+  if (users.find(user => user.id === id)) {
+    await generateUniqueId();
+  }
+
   return id;
 };
 
@@ -28,4 +31,3 @@ export const writeUsers = async (users: User[]) => {
   const usersData = JSON.stringify({ users });
   await writeFile(usersPath, usersData, { flag: "w+" });
 };
-
