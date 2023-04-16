@@ -4,6 +4,8 @@ import { IncomingMessage, ServerResponse } from "http";
 
 export const usersPath = join(__dirname, "db.json");
 
+const emptyUserJSON = '{ "users": [] }';
+
 export const createMessage = <DT = any>(
   code: number,
   result: "success" | "error",
@@ -38,5 +40,5 @@ export const findMap = <T, U>(arr: T[], pred: (x: T) => U | false) => {
 };
 
 export const startDB = async () => {
-  writeFile(usersPath, '{ "users": [] }', { flag: "w+" });
+  await writeFile(usersPath, emptyUserJSON, { flag: "w+" });
 };

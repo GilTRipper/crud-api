@@ -39,6 +39,7 @@ export const createApp = () => {
           return false;
         }
       }
+
       return { params, controller: handler.controller };
     });
     if (!handler) {
@@ -48,7 +49,6 @@ export const createApp = () => {
     try {
       await handler.controller(req, res, handler.params);
     } catch (error) {
-      console.error(error);
       handle500Error(req, res);
     }
   });
@@ -56,8 +56,6 @@ export const createApp = () => {
   const listen = (port: string = "4000") => server.listen(port);
 
   const close = () => server.emit("close");
-
-  console.log(server.close);
 
   return { get: _get, post: _post, delete: _delete, put: _put, listen, close };
 };

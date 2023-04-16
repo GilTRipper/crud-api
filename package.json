@@ -18,7 +18,8 @@
     "build": "tsc",
     "start:prod": "node dist/server.js",
     "test": "jest",
-    "start:multi": ""
+    "start:multi": "SCALING=horizontal node dist/server.js",
+    "start:multi-dev": "SCALING=horizontal nodemon"
   },
   "repository": {
     "type": "git",

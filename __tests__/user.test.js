@@ -31,7 +31,6 @@ describe("API: Users", () => {
   test("Should get user record by it's id", async () => {
     const response = await request(baseUrl).get(`/api/users/${testUser.id}`);
     const { user } = response.body;
-    console.log(response.text);
 
     expect(user).toStrictEqual(testUser);
   });
